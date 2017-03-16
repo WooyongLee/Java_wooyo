@@ -1,0 +1,13 @@
+
+public abstract class Duck {
+	public void quack(){
+		System.out.println("²Ð²Ð");
+	}
+	public void swim(){
+		System.out.println("¼ö¿µ Áß");
+	}
+	public void fly(){
+		System.out.println("³­ ³¯°í ÀÖ¾î");
+	}
+	public abstract void display();
+}
