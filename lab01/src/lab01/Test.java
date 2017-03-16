@@ -1,4 +1,4 @@
-package lab01
+package lab01;
 
 public class Test {
 	public static void main(String[] args) {
@@ -25,6 +25,6 @@ public class Test {
 			}
 		}
 		System.out.println(player1);
-		system.out.println(player2);
+		System.out.println(player2);
 	}
 }
