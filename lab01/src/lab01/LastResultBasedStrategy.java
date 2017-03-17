@@ -1,32 +1,36 @@
-package lab01;
+
+import java.util.Random;
 
 public class LastResultBasedStrategy implements PlayingStrategy {
-/*
- 	- ì´ê¸°ê±°ë‚˜ ë¹„ê¸´ ê²½ìš°: ê°™ì€ ì†ì„ ë‹¤ì‹œ ë‚´ì§€ ì•Šì„ ê²ƒì´ë¼ê³  ê°€ì •í•˜ê³  ê·¸ê²ƒì„ ì œì™¸í•œ ë‚˜ë¨¸ì§€ ë‘ ì¢…ë¥˜ ì¤‘ í•˜ë‚˜ë¥¼
-	ëœë¤í•˜ê²Œ ê²°ì •í•¨
-	â€“ ì§„ ê²½ìš°: ìƒëŒ€ë°©ì´ ê°™ì€ ì†ì„ ë‚¼ ê²ƒì´ë¼ê³  ê°€ì •í•˜ê³  ê·¸ê²ƒì„ ì´ê¸¸ ìˆ˜ ìˆëŠ” ì†ìœ¼ë¡œ ê²°ì •í•¨
- */
+	private static HandType prevhand = HandType.BO; // ÀÌÀü¿¡ ³½ ¼Õ
+	private ResultType prevresult = ResultType.LOST; // ÀÌÀüÀÇ °á°ú
+
+	public LastResultBasedStrategy() { // »ı¼ºÀÚ¿¡¼­´Â Áö³­ ½ÂÆĞ °á°ú¿¡ ´ëÇÑ ÇÔ¼ö¸¦ È£ÃâÇÕ´Ï´Ù.
+		recordHistory(prevresult);
+	}
 	
-	public HandType nextHand() { /*
-		if (  ) { // ì´ê¸°ê±°ë‚˜ ë¹„ê¸´ ê²½ìš°
+	public HandType nextHand() {
+		switch (prevresult) {
+		case WON :
+		case DRAWN :  // ÀÌ±â°Å³ª ºñ±ä °æ¿ì ÀÌÀü²¨¶û ´Ù¸¥ ³ª¸ÓÁö µÑ Áß ÇÏ³ª ·£´ı
 			while ( true ) {
-				int random = (int ) (Math.random() * 2); // 0, 1, 2 ë‚˜ì˜¤ê²Œë”
-				if ( valueOf(random) == prevhand ) {
-					break;
-				}
+				Random seed = new Random();
+				int random = seed.nextInt(3); // 0, 1, 2 ³ª¿À°Ô²û Á¶Á¤
+				 if ( HandType.valueOf(random) != prevhand ) { // ÀÌÀü¿¡ ³½ ¼ÕÇÏ°í ´Ù¸¥°Å°¡ ³ª¿Â´Ù¸é
+					prevhand = HandType.valueOf(random); 
+					return prevhand; // ÀÌÀü°ú ´Ù¸¥ prevhand ¹İÈ¯
+				 }
 			}
-		}*/
-		
-		return HandType.BO;
-	} // prevHandì™€ prevResultë¥¼ ì´ìš©í•˜ì—¬ ì´ ì „ëµì— ë§ê²Œ ì†ì„ ê²°ì •í•˜ì—¬ ë°˜í™˜í•˜ì—¬ì•¼ í•˜ë©°,
-	// ìµœì¢… ë°˜í™˜ëœ ê°’ì€ ë‹¤ìŒ ê²Œì„ì„ ìœ„í•´ prevHandì— ëŒ€ì…ë˜ì–´ì•¼ í•¨
+		case LOST:  // Áø °æ¿ì, »ó´ë¹æÀÌ ÇÑ¹ø ´õ ³¾²¨¶ó »ı°¢ÇÏ±¸ »ó´ë¹æÀÇ ÀÌÀü²¨¸¦ ÀÌ±â´Â ¼ö¸¦ µÓ´Ï´Ù.
+			return prevhand.winValueOf().winValueOf(); 
+		default :
+			return prevhand;
+		}
+	} // prevHand¿Í prevResult¸¦ ÀÌ¿ëÇÏ¿© ÀÌ Àü·«¿¡ ¸Â°Ô ¼ÕÀ» °áÁ¤ÇÏ¿© ¹İÈ¯ÇÏ¿©¾ß ÇÏ¸ç,
+	// ÃÖÁ¾ ¹İÈ¯µÈ °ªÀº ´ÙÀ½ °ÔÀÓÀ» À§ÇØ prevHand¿¡ ´ëÀÔµÇ¾î¾ß ÇÔ
 
-	public void recordHistory(ResultType currResult) { 
-	
-			// HandType.values()[n];
-	
-		
-	} // currResult: ì§€ë‚œ ê²Œì„ì˜ ìŠ¹,ë¬´,íŒ¨ ê²°ê³¼
-	// ì‚¬í›„ì¡°ê±´: prevResultì— ì£¼ì–´ì§„ ì¸ìë¥¼ ëŒ€ì…í•¨
+	public void recordHistory(ResultType currResult) {
+		this.prevresult = currResult; // ÀÌÀüÀÇ ½ÂÆĞ °á°ú¿¡ ´ëÇÑ Á¤º¸¸¦ È®º¸
+	} 
+	// »çÈÄÁ¶°Ç: prevResult¿¡ ÁÖ¾îÁø ÀÎÀÚ¸¦ ´ëÀÔÇÔ
 }
-

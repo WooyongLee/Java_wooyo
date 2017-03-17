@@ -1,10 +1,9 @@
-package lab01;
 
 public class Test {
 	public static void main(String[] args) {
 		Player player1 = new Player(new RandomStrategy());
 		Player player2 = new Player(new LastResultBasedStrategy());
-		for(int i=0; i<100; i++){
+		for(int i=0; i<10; i++){
 			HandType h1 = player1.nextHand();
 			HandType h2 = player2.nextHand();
 			System.out.printf("사용자1: %s VS 사용자2: %s", h1, h2);
@@ -24,7 +23,7 @@ public class Test {
 				player2.setResult(ResultType.LOST);
 			}
 		}
-		System.out.println(player1);
-		System.out.println(player2);
+		System.out.println("player1 : " + player1);
+		System.out.println("player2 : " + player2);
 	}
 }

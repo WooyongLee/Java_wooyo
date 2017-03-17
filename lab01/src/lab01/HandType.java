@@ -1,4 +1,3 @@
-package lab01;
 
 public enum HandType {
 	GAWI {
@@ -26,5 +25,6 @@ public enum HandType {
 	public static HandType valueOf(int n) { // n은 0, 1 또는 2 중 하나이어야 함. 사전조건을 검사하지 않아도 됨
 		return HandType.values()[n];
 	}// 주어진 n에 해당되는 열거형 값을 반환함. 
+	
 	
 }
